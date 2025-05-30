@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tr Disayn</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>مرحبا بك في موقع Tr Disayn</h1>
+    <button id="orderBtn">طلب الخدمة</button>
+  </header>
+
+  <section class="btn-group" id="mainOptions">
+    <button data-target="imageDesign">تصميم صور</button>
+    <button data-target="videoEditing">مونتاج فيديوهات</button>
+  </section>
+
+  <section class="options-container hidden" id="imageDesign">
+    <div class="option-title">تصميم الصور</div>
+    <div class="option-item" data-price="10">
+      <div class="option-name">صورة مصغرة احترافية</div>
+      <div class="option-price">10 دولار</div>
+    </div>
+    <div class="option-item" data-price="5">
+      <div class="option-name">صورة مصغرة عادية</div>
+      <div class="option-price">5 دولار</div>
+    </div>
+    <div class="option-item" data-price="15">
+      <div class="option-name">لوجو احترافي</div>
+      <div class="option-price">15 دولار</div>
+    </div>
+    <div class="option-item" data-price="6">
+      <div class="option-name">لوجو عادي</div>
+      <div class="option-price">6 دولار</div>
+    </div>
+  </section>
+
+  <section class="options-container hidden" id="videoEditing">
+    <div class="option-title">مونتاج الفيديوهات</div>
+    <button class="subBtn" data-target="introOptions">المقدمة</button>
+    <button class="subBtn" data-target="mainOptionsVideo">الزاوج الباقي</button>
+    <button class="subBtn" data-target="shortVideoOptions">فيديو شورت</button>
+
+    <!-- المقدمة -->
+    <div class="options-container hidden" id="introOptions" style="margin-top:20px;">
+      <div class="option-item" data-price="10">
+        <div class="option-name">احترافي</div>
+        <div class="option-price">10 دولار</div>
+      </div>
+      <div class="option-item" data-price="5">
+        <div class="option-name">عادي</div>
+        <div class="option-price">5 دولار</div>
+      </div>
+    </div>
+
+    <!-- الزاوج الباقي -->
+    <div class="options-container hidden" id="mainOptionsVideo" style="margin-top:20px;">
+      <div class="option-item" data-price="30">
+        <div class="option-name">احترافي</div>
+        <div class="option-price">30 دولار</div>
+      </div>
+      <div class="option-item" data-price="20">
+        <div class="option-name">عادي</div>
+        <div class="option-price">20 دولار</div>
+      </div>
+    </div>
+
+    <!-- فيديو شورت -->
+    <div class="options-container hidden" id="shortVideoOptions" style="margin-top:20px;">
+      <div class="option-item" data-price="20">
+        <div class="option-name">احترافي</div>
+        <div class="option-price">20 دولار</div>
+      </div>
+      <div class="option-item" data-price="15">
+        <div class="option-name">عادي</div>
+        <div class="option-price">15 دولار</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>للتواصل معي في المشكلات في الموقع:</div>
+    <div class="contact">
+      <a href="mailto:designtr249@gmail.com">designtr249@gmail.com</a> |
+      <a href="https://www.instagram.com/tr_design_alg?igsh=MXE5czUxZnJuY3hvbQ==" target="_blank">انستغرام</a>
+    </div>
+  </footer>
+
+  <script>
+    const mainOptions = document.getElementById('mainOptions');
+    const imageDesign = document.getElementById('imageDesign');
+    const videoEditing = document.getElementById('videoEditing');
+    const orderBtn = document.getElementById('orderBtn');
+
+    // إظهار القسم المختار
+    mainOptions.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const target = e.target.getAttribute('data-target');
+
+        // إخفاء كل الأقسام الفرعية
+        imageDesign.classList.add('hidden');
+        videoEditing.classList.add('hidden');
+
+        if(target === 'imageDesign') {
+          imageDesign.classList.remove('hidden');
+        } else if(target === 'videoEditing') {
+          videoEditing.classList.remove('hidden');
+        }
+      }
+    });
+
+    // إظهار خيارات فرعية في مونتاج الفيديو
+    const subBtns = document.querySelectorAll('#videoEditing .subBtn');
+    subBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // إخفاء كل خيارات الفيديو
+        document.querySelectorAll('#videoEditing > .options-container').forEach(div => {
+          div.classList.add('hidden');
+        });
+
+        // إظهار الخيارات المحددة فقط
+        const targetId = btn.getAttribute('data-target');
+        const targetDiv = document.getElementById(targetId);
+        if(targetDiv) {
+          targetDiv.classList.remove('hidden');
+        }
+      });
+    });
+
+    // زر الطلب: فتح الإيميل أو الإنستغرام في نافذة جديدة
+    orderBtn.addEventListener('click', () => {
+      const contactMethod = confirm('هل تريد التواصل عبر الإيميل؟ (اضغط "موافق")\nللتواصل عبر الإنستغرام اضغط "إلغاء"');
+      if(contactMethod) {
+        window.location.href = 'mailto:designtr249@gmail.com';
+      } else {
+        window.open('https://www.instagram.com/tr_design_alg?igsh=MXE5czUxZnJuY3hvbQ==', '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
